@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: {{ .Values.nginx.appLabel }}
+  name: {{ .Values.nginx.name }}
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: {{ .Values.nginx.appLabel }}
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: {{ .Values.nginx.appLabel }}
+    spec:
+      containers:
+      - name: {{ .Values.nginx.name }}
+        image: nginx
+        ports:
+        - containerPort: {{ .Values.nginx.containerPort }}
+        volumeMounts:
+        - mountPath: /etc/nginx/
+          readOnly: true
+          name: nginx-conf
+        - mountPath: /var/log/nginx
+          name: log
+      volumes:
+      - name: nginx-conf
+        configMap:
+          name: nginx-conf
+          items:
+            - key: nginx.conf
+              path: nginx.conf
+            - key: virtualhost.conf
+              path: virtualhost/virtualhost.conf
+      - name: log
+        emptyDir: {}
+status: {}

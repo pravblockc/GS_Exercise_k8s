@@ -1,0 +1,13 @@
+helloK8s:
+    name: hello-kubernetes
+    port: 80
+    targetPort: 8080
+    containerPort: 8080
+    appLabel: hello-kubernetes
+
+nginx: 
+    name: nginx
+    port: 80
+    targetPort: 80
+    containerPort: 80
+    appLabel: nginx

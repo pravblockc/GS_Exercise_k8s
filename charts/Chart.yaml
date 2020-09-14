@@ -1,0 +1,3 @@
+appVersion: v1
+name: k8s-hello-world-proxy
+version: 1.0.0

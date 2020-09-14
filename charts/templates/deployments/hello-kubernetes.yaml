@@ -1,0 +1,19 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.helloK8s.name }}
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: {{ .Values.helloK8s.appLabel}}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.helloK8s.appLabel }}
+    spec:
+      containers:
+      - name: {{ .Values.helloK8s.name}}
+        image: paulbouwer/hello-kubernetes:1.8
+        ports:
+        - containerPort: {{ .Values.helloK8s.containerPort }}
